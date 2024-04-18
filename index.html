@@ -1,0 +1,55 @@
+<!-- In this question, you are required to create a single web page and retrieve the
+current local weather using a free online service.
+There are several free weather service providers available; it's up to you to find one,
+study its API, figure out what endpoint to use, and write the JavaScript code to
+retrieve the current weather for Calgary. You should retrieve at least the
+temperature and a description of the weather (e.g. partially cloudy, sunny, snowing,
+etc). Then Style your page. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Weather</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: rgb(238, 238, 162);
+        color:rgb(2, 2, 118);
+    }
+
+    h1 {
+        margin-top: 50px;
+    }
+
+    .weather-info {
+        margin-top: 20px;
+    }
+    /* STYLES.CSS */
+</style>
+</head>
+<body>
+    <h1>Current Weather in Calgary</h1>
+    <div class="weather-info">
+        <p>Temperature: <span id="temperature"></span> &deg;C</p>
+        <p>Description: <span id="description"></span></p>
+    </div>
+<!-- SCRIPT JS -->
+    <script>
+        const apiKey = 'b0feee37251971a39ad14c25b5d9e807'; // Enter your OpenWeatherMap API key here
+        const city = 'Calgary';
+
+        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`) //api call + city and API key
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('temperature').textContent = data.main.temp; //shows the updated temp
+                document.getElementById('description').textContent = data.weather[0].description; //shows the description
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>
